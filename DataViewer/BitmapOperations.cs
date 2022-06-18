@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Numerics;
-using System.Runtime.InteropServices;
 
 namespace DataViewer
 {
@@ -75,12 +74,21 @@ namespace DataViewer
                     return 3;
                 case PixelFormat.Format32bppArgb:
                     return 4;
+
                 default:
                     throw new ArgumentException("Invalid pixel format!");
             }
         }
 
-        private static byte[] DataBuffer = new byte[0];
+        private static byte[] DataBuffer = null;
+
+        public static void EnsureBuffer(long size)
+        {
+            if (DataBuffer == null || size > DataBuffer.Length)
+            {
+                DataBuffer = new byte[size];
+            }
+        }
 
         public static void CopyDataAsPixels(Stream from, long offset, Bitmap to, int pixelsPerLine,
             DataPixelFormat dataPixelFormat)
@@ -90,11 +98,8 @@ namespace DataViewer
             var pixelFormat = to.PixelFormat;
             int bytesPerPixel = GetBytesPerPixel(pixelFormat);
 
-            int maxPossiblePixels = imageWidth * imageHeight;
-            if (maxPossiblePixels * bytesPerPixel > DataBuffer.Length)
-            {
-                DataBuffer = new byte[maxPossiblePixels * bytesPerPixel];
-            }
+            long maxPossiblePixels = (long)imageWidth * imageHeight;
+            EnsureBuffer(maxPossiblePixels * bytesPerPixel);
 
             int totalUsefulPixels = imageHeight * pixelsPerLine;
             int totalBytesToRead = totalUsefulPixels * bytesPerPixel;
@@ -172,7 +177,7 @@ namespace DataViewer
                     Utils.Memset(dest, 0, stride - lastLineBytes);
                     dest += stride - lastLineBytes;
                 }
-                
+
                 Utils.Memset(dest, 0, emptyLines * stride);
             }
         }

@@ -62,6 +62,8 @@ namespace DataViewer
 
             this.mainPictureBox.Image = this.TheImage;
 
+            BitmapOperations.EnsureBuffer((long)this.Options.MaxImageWidth * this.Options.MaxImageHeight *
+                                          this.BytesPerPixel);
             this.SoftRefresh();
         }
 
@@ -222,7 +224,8 @@ namespace DataViewer
             this.DataStream = new FileStream(this.FilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
             this.DataStreamLength = this.DataStream.Length;
 
-            this.oNumericUpDown.Maximum = (int)this.DataStream.Length;
+            this.oNumericUpDown.Maximum = this.DataStream.Length;
+            this.Text = $"Data Viewer - {this.FilePath}";
 
             this.SoftRefresh();
         }
