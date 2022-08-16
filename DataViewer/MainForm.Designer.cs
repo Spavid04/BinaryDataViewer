@@ -32,6 +32,7 @@ namespace DataViewer
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.paletteEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainTLP = new System.Windows.Forms.TableLayoutPanel();
             this.controlsPanel = new System.Windows.Forms.Panel();
             this.saveImportantButton = new System.Windows.Forms.Button();
@@ -70,7 +71,8 @@ namespace DataViewer
             // 
             this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
-            this.optionsToolStripMenuItem});
+            this.optionsToolStripMenuItem,
+            this.paletteEditorToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
             this.mainMenuStrip.Size = new System.Drawing.Size(991, 24);
@@ -90,6 +92,13 @@ namespace DataViewer
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
+            // 
+            // paletteEditorToolStripMenuItem
+            // 
+            this.paletteEditorToolStripMenuItem.Name = "paletteEditorToolStripMenuItem";
+            this.paletteEditorToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
+            this.paletteEditorToolStripMenuItem.Text = "Palette editor";
+            this.paletteEditorToolStripMenuItem.Click += new System.EventHandler(this.paletteEditorToolStripMenuItem_Click);
             // 
             // mainTLP
             // 
@@ -146,7 +155,7 @@ namespace DataViewer
             this.pfComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.pfComboBox.FormattingEnabled = true;
             this.pfComboBox.Items.AddRange(new object[] {
-            "Grayscale",
+            "Grayscale (using palette)",
             "RGB",
             "BGR",
             "RGBA",
@@ -409,6 +418,7 @@ namespace DataViewer
         private System.Windows.Forms.OpenFileDialog saveOpenFileDialog;
         private System.Windows.Forms.PictureBox mainPictureBox;
         private System.Windows.Forms.Button saveImportantButton;
+        private System.Windows.Forms.ToolStripMenuItem paletteEditorToolStripMenuItem;
     }
 }
 

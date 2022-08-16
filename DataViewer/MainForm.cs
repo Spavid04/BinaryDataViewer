@@ -8,7 +8,9 @@ namespace DataViewer
 {
     public partial class MainForm : Form
     {
+        private readonly string[] ProgramArgs;
         private OptionValues Options = new OptionValues();
+        private ColorPaletteForm PaletteForm = null;
 
         private Bitmap TheImage = null;
 
@@ -16,8 +18,9 @@ namespace DataViewer
         private Stream DataStream = null;
         private long DataStreamLength = 0;
 
-        public MainForm()
+        public MainForm(string[] args = null)
         {
+            this.ProgramArgs = args;
             this.Disposed += (_, _) => this.DisposeStuff();
             InitializeComponent();
         }
@@ -28,6 +31,15 @@ namespace DataViewer
             this.pplNumericUpDown.Value = this.mainPictureBox.Width;
             this.PplNorefresh = false;
             this.pfComboBox.SelectedIndex = 0;
+
+            if (this.ProgramArgs != null && this.ProgramArgs.Length >= 1)
+            {
+                string path = this.ProgramArgs[0];
+                if (File.Exists(path))
+                {
+                    this.OpenFile(path);
+                }
+            }
         }
 
         #region Refresh methods
@@ -248,6 +260,39 @@ namespace DataViewer
             this.pplNumericUpDown.Maximum = this.pplTrackBar.Maximum = this.Options.MaxImageWidth;
 
             this.HardRefresh();
+        }
+
+        private void paletteEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.PaletteForm != null)
+            {
+                this.PaletteForm.BringToFront();
+                return;
+            }
+
+            var form = new ColorPaletteForm();
+            form.Closed += (_, _) =>
+            {
+                this.PaletteForm = null;
+            };
+            form.PaletteParsed += this.PaletteParsed;
+
+            this.PaletteForm = form;
+            form.Show(this);
+        }
+
+        private void PaletteParsed(CustomColorPalette palette)
+        {
+            if (this.mainPictureBox.Image.PixelFormat != PixelFormat.Format8bppIndexed)
+            {
+                return;
+            }
+
+            var pbPalette = this.mainPictureBox.Image.Palette;
+            palette.SetColorsToPalette(pbPalette);
+            this.mainPictureBox.Image.Palette = pbPalette;
+
+            this.mainPictureBox.Invalidate();
         }
 
         private void redrawButton_Click(object sender, EventArgs e)

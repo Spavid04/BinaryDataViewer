@@ -24,7 +24,7 @@ namespace DataViewer
         {
             switch (text)
             {
-                case "Grayscale":
+                case "Grayscale (using palette)":
                     return DataPixelFormat.GRAYSCALE;
                 case "RGB":
                     return DataPixelFormat.RGB;
