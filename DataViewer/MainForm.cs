@@ -86,7 +86,7 @@ namespace DataViewer
                 return;
             }
 
-            BitmapOperations.CopyDataAsPixels(this.DataStream, this.Options.Offset, this.TheImage, this.Options.PixelsPerLine, this.Options.DPFormat);
+            BitmapOperations.CopyDataAsPixels(this.DataStream, this.Options.Offset, this.TheImage, this.Options.PixelsPerLine, this.Options.PixelScaling, this.Options.DPFormat);
             this.mainPictureBox.Invalidate();
         }
 
@@ -199,6 +199,28 @@ namespace DataViewer
                 this.oTrackBar.Value = (int)(((double)this.oNumericUpDown.Value / this.DataStreamLength) * this.oTrackBar.Maximum);
             }
             this.Options.Offset = (long)this.oNumericUpDown.Value;
+
+            if (this.autoRedrawCheckBox.Checked)
+            {
+                this.SoftRefresh();
+            }
+        }
+
+        private bool ScalingNosync = false;
+        private void scalingTrackBar_Scroll(object sender, EventArgs e)
+        {
+            this.ScalingNosync = true;
+            this.scalingNumericUpDown.Value = this.scalingTrackBar.Value;
+            this.ScalingNosync = false;
+        }
+
+        private void scalingNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (!this.ScalingNosync)
+            {
+                this.scalingTrackBar.Value = (int)this.scalingNumericUpDown.Value;
+            }
+            this.Options.PixelScaling = (int)this.scalingNumericUpDown.Value;
 
             if (this.autoRedrawCheckBox.Checked)
             {
@@ -389,6 +411,7 @@ namespace DataViewer
 
         public int PixelsPerLine = 1000;
         public long Offset = 0;
+        public int PixelScaling = 1;
         public BitmapOperations.DataPixelFormat DPFormat = BitmapOperations.StringToDataPixelFormat("RGB");
     }
 }

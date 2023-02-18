@@ -91,23 +91,26 @@ namespace DataViewer
         }
 
         public static void CopyDataAsPixels(Stream from, long offset, Bitmap to, int pixelsPerLine,
-            DataPixelFormat dataPixelFormat)
+            int pixelScaling, DataPixelFormat dataPixelFormat)
         {
             int imageWidth = to.Width;
             int imageHeight = to.Height;
             var pixelFormat = to.PixelFormat;
             int bytesPerPixel = GetBytesPerPixel(pixelFormat);
 
-            long maxPossiblePixels = (long)imageWidth * imageHeight;
-            EnsureBuffer(maxPossiblePixels * bytesPerPixel);
+            int scaledPixelsPerLine = pixelsPerLine / pixelScaling;
+            int usableScaledLines = imageHeight / pixelScaling;
 
-            int totalUsefulPixels = imageHeight * pixelsPerLine;
+            long maxPossiblePixels = ((long)imageWidth * imageHeight) / pixelScaling;
+            EnsureBuffer(maxPossiblePixels * bytesPerPixel * pixelScaling * pixelScaling);
+
+            int totalUsefulPixels = usableScaledLines * scaledPixelsPerLine;
             int totalBytesToRead = totalUsefulPixels * bytesPerPixel;
 
             from.Seek(offset, SeekOrigin.Begin);
             int actualBytesRead = from.Read(DataBuffer, 0, totalBytesToRead);
 
-            var bitmapData = to.LockBits(new Rectangle(0, 0, imageWidth, imageHeight), ImageLockMode.WriteOnly,
+            var bitmapData = to.LockBits(new Rectangle(0, 0, imageWidth, usableScaledLines), ImageLockMode.WriteOnly,
                 pixelFormat);
 
             // in most cases where we have to flip bytes around, the last pixel will very often be "wrong"
@@ -136,9 +139,57 @@ namespace DataViewer
                     FlipToABGR(DataBuffer, actualBytesRead);
                     break;
             }
-            CopyPixels(bitmapData.Scan0, bitmapData.Stride, imageHeight, DataBuffer, actualBytesRead, pixelsPerLine, bytesPerPixel);
+            ScaleData(DataBuffer, actualBytesRead, scaledPixelsPerLine * bytesPerPixel, pixelScaling, bytesPerPixel);
+            CopyPixels(bitmapData.Scan0, bitmapData.Stride, imageHeight, DataBuffer, actualBytesRead * pixelScaling * pixelScaling, scaledPixelsPerLine * pixelScaling, bytesPerPixel);
 
             to.UnlockBits(bitmapData);
+        }
+
+        private static unsafe void ScaleData(byte[] data, int dataSize, int lineSize, int duplication, int grouping)
+        {
+            if (duplication == 1)
+            {
+                return;
+            }
+            
+            int lineCount = dataSize / lineSize;
+            int scaledLineSize = lineSize * duplication;
+            int scaledLineCount = lineCount * duplication;
+
+            byte[] lineBuffer = new byte[scaledLineSize];
+
+            fixed (byte* p1 = &data[0])
+            fixed (byte* p2 = &lineBuffer[0])
+            {
+                IntPtr dataPtr = (IntPtr)p1;
+                IntPtr bufferPtr;
+
+                IntPtr srcPtr = dataPtr + lineSize * (lineCount - 1);
+                IntPtr destPtr = dataPtr + scaledLineSize * (scaledLineCount - 1);
+
+                while ((long)srcPtr >= (long)dataPtr)
+                {
+                    bufferPtr = (IntPtr)p2;
+                    for (int i = 0; i < lineSize; i++)
+                    {
+                        int offset = i * grouping;
+                        for (int j = 0; j < duplication; j++)
+                        {
+                            Utils.Memcpy(bufferPtr, srcPtr + offset, grouping);
+                            bufferPtr += grouping;
+                        }
+                    }
+
+                    bufferPtr = (IntPtr)p2;
+                    for (int j = 0; j < duplication; j++)
+                    {
+                        Utils.Memcpy(destPtr, bufferPtr, scaledLineSize);
+                        destPtr -= scaledLineSize;
+                    }
+
+                    srcPtr -= lineSize;
+                }
+            }
         }
 
         #region Pixel manipulators

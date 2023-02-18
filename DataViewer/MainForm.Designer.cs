@@ -35,6 +35,9 @@ namespace DataViewer
             this.paletteEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainTLP = new System.Windows.Forms.TableLayoutPanel();
             this.controlsPanel = new System.Windows.Forms.Panel();
+            this.scalingGroupBox = new System.Windows.Forms.GroupBox();
+            this.scalingNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.scalingTrackBar = new System.Windows.Forms.TrackBar();
             this.saveImportantButton = new System.Windows.Forms.Button();
             this.pfGroupGox = new System.Windows.Forms.GroupBox();
             this.pfComboBox = new System.Windows.Forms.ComboBox();
@@ -57,6 +60,9 @@ namespace DataViewer
             this.mainMenuStrip.SuspendLayout();
             this.mainTLP.SuspendLayout();
             this.controlsPanel.SuspendLayout();
+            this.scalingGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scalingNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scalingTrackBar)).BeginInit();
             this.pfGroupGox.SuspendLayout();
             this.oGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.oTrackBar)).BeginInit();
@@ -117,6 +123,7 @@ namespace DataViewer
             // 
             // controlsPanel
             // 
+            this.controlsPanel.Controls.Add(this.scalingGroupBox);
             this.controlsPanel.Controls.Add(this.saveImportantButton);
             this.controlsPanel.Controls.Add(this.pfGroupGox);
             this.controlsPanel.Controls.Add(this.oGroupBox);
@@ -130,9 +137,54 @@ namespace DataViewer
             this.controlsPanel.Size = new System.Drawing.Size(194, 663);
             this.controlsPanel.TabIndex = 0;
             // 
+            // scalingGroupBox
+            // 
+            this.scalingGroupBox.Controls.Add(this.scalingNumericUpDown);
+            this.scalingGroupBox.Controls.Add(this.scalingTrackBar);
+            this.scalingGroupBox.Location = new System.Drawing.Point(3, 291);
+            this.scalingGroupBox.Name = "scalingGroupBox";
+            this.scalingGroupBox.Size = new System.Drawing.Size(188, 100);
+            this.scalingGroupBox.TabIndex = 15;
+            this.scalingGroupBox.TabStop = false;
+            this.scalingGroupBox.Text = "Pixel scaling";
+            // 
+            // scalingNumericUpDown
+            // 
+            this.scalingNumericUpDown.Location = new System.Drawing.Point(6, 22);
+            this.scalingNumericUpDown.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.scalingNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.scalingNumericUpDown.Name = "scalingNumericUpDown";
+            this.scalingNumericUpDown.Size = new System.Drawing.Size(79, 23);
+            this.scalingNumericUpDown.TabIndex = 1;
+            this.scalingNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.scalingNumericUpDown.ValueChanged += new System.EventHandler(this.scalingNumericUpDown_ValueChanged);
+            // 
+            // scalingTrackBar
+            // 
+            this.scalingTrackBar.Location = new System.Drawing.Point(6, 51);
+            this.scalingTrackBar.Maximum = 50;
+            this.scalingTrackBar.Minimum = 1;
+            this.scalingTrackBar.Name = "scalingTrackBar";
+            this.scalingTrackBar.Size = new System.Drawing.Size(176, 45);
+            this.scalingTrackBar.TabIndex = 2;
+            this.scalingTrackBar.Value = 1;
+            this.scalingTrackBar.Scroll += new System.EventHandler(this.scalingTrackBar_Scroll);
+            // 
             // saveImportantButton
             // 
-            this.saveImportantButton.Location = new System.Drawing.Point(3, 413);
+            this.saveImportantButton.Location = new System.Drawing.Point(3, 519);
             this.saveImportantButton.Name = "saveImportantButton";
             this.saveImportantButton.Size = new System.Drawing.Size(188, 23);
             this.saveImportantButton.TabIndex = 14;
@@ -143,7 +195,7 @@ namespace DataViewer
             // pfGroupGox
             // 
             this.pfGroupGox.Controls.Add(this.pfComboBox);
-            this.pfGroupGox.Location = new System.Drawing.Point(3, 291);
+            this.pfGroupGox.Location = new System.Drawing.Point(3, 397);
             this.pfGroupGox.Name = "pfGroupGox";
             this.pfGroupGox.Size = new System.Drawing.Size(188, 52);
             this.pfGroupGox.TabIndex = 13;
@@ -303,7 +355,7 @@ namespace DataViewer
             // 
             // saveAllButton
             // 
-            this.saveAllButton.Location = new System.Drawing.Point(3, 442);
+            this.saveAllButton.Location = new System.Drawing.Point(3, 548);
             this.saveAllButton.Name = "saveAllButton";
             this.saveAllButton.Size = new System.Drawing.Size(188, 23);
             this.saveAllButton.TabIndex = 10;
@@ -313,7 +365,7 @@ namespace DataViewer
             // 
             // redrawButton
             // 
-            this.redrawButton.Location = new System.Drawing.Point(3, 384);
+            this.redrawButton.Location = new System.Drawing.Point(3, 490);
             this.redrawButton.Name = "redrawButton";
             this.redrawButton.Size = new System.Drawing.Size(91, 23);
             this.redrawButton.TabIndex = 9;
@@ -326,7 +378,7 @@ namespace DataViewer
             this.autoRedrawCheckBox.AutoSize = true;
             this.autoRedrawCheckBox.Checked = true;
             this.autoRedrawCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.autoRedrawCheckBox.Location = new System.Drawing.Point(100, 387);
+            this.autoRedrawCheckBox.Location = new System.Drawing.Point(100, 493);
             this.autoRedrawCheckBox.Name = "autoRedrawCheckBox";
             this.autoRedrawCheckBox.Size = new System.Drawing.Size(91, 19);
             this.autoRedrawCheckBox.TabIndex = 8;
@@ -377,6 +429,10 @@ namespace DataViewer
             this.mainTLP.ResumeLayout(false);
             this.controlsPanel.ResumeLayout(false);
             this.controlsPanel.PerformLayout();
+            this.scalingGroupBox.ResumeLayout(false);
+            this.scalingGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scalingNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scalingTrackBar)).EndInit();
             this.pfGroupGox.ResumeLayout(false);
             this.oGroupBox.ResumeLayout(false);
             this.oGroupBox.PerformLayout();
@@ -419,6 +475,9 @@ namespace DataViewer
         private System.Windows.Forms.PictureBox mainPictureBox;
         private System.Windows.Forms.Button saveImportantButton;
         private System.Windows.Forms.ToolStripMenuItem paletteEditorToolStripMenuItem;
+        private System.Windows.Forms.GroupBox scalingGroupBox;
+        private System.Windows.Forms.NumericUpDown scalingNumericUpDown;
+        private System.Windows.Forms.TrackBar scalingTrackBar;
     }
 }
 
