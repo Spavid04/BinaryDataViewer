@@ -55,22 +55,21 @@ namespace DataViewer
 
 #region String description statics
 
-        private static readonly Regex DescriptionLineRegex = new Regex(
-            @"
+        private static readonly Regex DescriptionLineRegex = new Regex(@"
 ^
 (?:
-  \* | 
-  ((?:0x)?[0-9a-f]{1,3}h?) (?:\s*-\s*((?:0x)?[0-9a-f]{1,3}h?))?
+  (?<all_bytes> \*)
+  | (?<from_byte> (?:(?:0x)?[0-9a-f]{1,3}h? | '..??') )
+    (?:\s* - \s*(?<to_byte> (?:(?:0x)?[0-9a-f]{1,3}h? | '..??') ))?
 )
-\s*->\s*
+\s* -> \s*
 (?:
-  (\*) |
-  (?:\#? ([0-9a-f]{6})) |
-  (\w+)
+  (?<color_byteval> \*)
+  | (?:\#? (?<color_hex> [0-9a-f]{6}))
+  | (?<color_named> \w+)
 )
 $
-",
-            RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
 
         private static void ApplyDescriptionToColorArray(string description, Color[] colors)
         {
@@ -93,7 +92,7 @@ $
 
         private static void ApplyDescriptionLineToColorArray(string line, Color[] colors)
         {
-            if (line.StartsWith("#"))
+            if (line.TrimStart().StartsWith("#"))
             {
                 // a comment; ignore
                 return;
@@ -105,26 +104,21 @@ $
                 throw new FormatException($"Invalid description line: {line}");
             }
 
-            int startIndex;
-            int endIndex;
-            if (match.Groups[1].Success)
+            byte startIndex;
+            byte endIndex;
+            if (match.Groups["from_byte"].Success)
             {
-                startIndex = endIndex = IntFromString(match.Groups[1].Value);
-                if (match.Groups[2].Success)
+                startIndex = endIndex = Utils.ByteFromLiteral(match.Groups["from_byte"].Value);
+                if (match.Groups["to_byte"].Success)
                 {
-                    endIndex = IntFromString(match.Groups[2].Value);
+                    endIndex = Utils.ByteFromLiteral(match.Groups["to_byte"].Value);
                 }
 
                 if (startIndex > endIndex)
                 {
-                    int t = startIndex;
+                    byte t = startIndex;
                     startIndex = endIndex;
                     endIndex = t;
-                }
-
-                if (endIndex > 255)
-                {
-                    throw new ArgumentOutOfRangeException($"Invalid index {endIndex} on line {line}. Must be in [0-255]!");
                 }
             }
             else
@@ -133,53 +127,36 @@ $
                 endIndex = 255;
             }
 
-            Func<int, Color> colorFunction = null;
-            if (match.Groups[3].Success)
+            Func<byte, Color> colorFunction = null;
+            if (match.Groups["color_byteval"].Success)
             {
-                colorFunction = i => _grayscaleColors[i];
+                colorFunction = b => _grayscaleColors[b];
             }
-            else if (match.Groups[4].Success)
+            else if (match.Groups["color_hex"].Success)
             {
-                string hex = match.Groups[4].Value;
+                string hex = match.Groups["color_hex"].Value;
                 int r = Convert.ToInt32(hex[0..2], 16);
                 int g = Convert.ToInt32(hex[2..4], 16);
                 int b = Convert.ToInt32(hex[4..6], 16);
 
                 Color color = Color.FromArgb(r, g, b);
-                colorFunction = i => color;
+                colorFunction = _ => color;
             }
-            else if (match.Groups[5].Success)
+            else if (match.Groups["color_named"].Success)
             {
-                Color color = Color.FromName(match.Groups[5].Value);
+                string colorName = match.Groups["color_named"].Value;
+                Color color = Color.FromName(colorName);
                 if (color.ToArgb() == 0)
                 {
-                    throw new ArgumentException($"Unknown color name \"{match.Groups[5].Value}\"");
+                    throw new ArgumentException($"Unknown color name \"{colorName}\"");
                 }
-                colorFunction = i => color;
+                colorFunction = _ => color;
             }
 
             for (int i = startIndex; i <= endIndex; i++)
             {
-                colors[i] = colorFunction(i);
+                colors[i] = colorFunction((byte)i);
             }
-        }
-
-        private static int IntFromString(string text)
-        {
-            bool hex = false;
-            if (text.ToLower().StartsWith("0x"))
-            {
-                text = text.Substring(2);
-                hex = true;
-            }
-
-            if (text.ToLower().EndsWith("h"))
-            {
-                text = text.Substring(0, text.Length - 1);
-                hex = true;
-            }
-
-            return Convert.ToInt32(text, hex ? 16 : 10);
         }
 
 #endregion

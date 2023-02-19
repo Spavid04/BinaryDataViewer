@@ -57,6 +57,7 @@ namespace DataViewer
             // 
             // colorPaletteRichTextBox
             // 
+            this.colorPaletteRichTextBox.DetectUrls = false;
             this.colorPaletteRichTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.colorPaletteRichTextBox.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.colorPaletteRichTextBox.Location = new System.Drawing.Point(3, 3);

@@ -65,7 +65,7 @@
 # 
 # format:
 #   lines are made up of two elements separated by "-&gt;"
-#   the first element represents the byte value of it's pixel, in either decimal, 0xXX or XXh form
+#   the first element represents the byte value of its pixel, in either decimal, hex (0xXX or XXh), or simple C character literal form (eg '\n')
 #     if *, the rule applies to all values
 #     the first line can also specify a range, with a dash between the two values (eg 10h-20h)
 #  the second element represents the color value
