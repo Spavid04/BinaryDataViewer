@@ -99,8 +99,8 @@ namespace DataViewer
             
             int usableScaledLines = imageHeight / pixelScaling;
 
-            long maxPossiblePixels = ((long)imageWidth * imageHeight) / pixelScaling;
-            EnsureBuffer(ref DataBuffer, maxPossiblePixels * bytesPerPixel);
+            long maxPossibleDataPixels = ((long)pixelsPerLine * imageHeight) / (pixelScaling * pixelScaling);
+            EnsureBuffer(ref DataBuffer, maxPossibleDataPixels * bytesPerPixel * pixelScaling * pixelScaling);
 
             int totalUsefulPixels = usableScaledLines * pixelsPerLine;
             int totalBytesToRead = totalUsefulPixels * bytesPerPixel;
@@ -137,61 +137,66 @@ namespace DataViewer
                     FlipToABGR(DataBuffer, actualBytesRead);
                     break;
             }
-            ScaleData(DataBuffer, actualBytesRead, pixelsPerLine, pixelScaling, bytesPerPixel);
+
+            if (pixelScaling > 1)
+            {
+                ScaleData(DataBuffer, actualBytesRead, pixelsPerLine, usableScaledLines, pixelScaling, bytesPerPixel);
+            }
             CopyPixels(bitmapData.Scan0, bitmapData.Stride, imageHeight, DataBuffer, actualBytesRead * pixelScaling * pixelScaling, pixelsPerLine * pixelScaling, bytesPerPixel);
 
             to.UnlockBits(bitmapData);
         }
 
+        #region Pixel manipulators
+
         private static byte[] ScalingLineBuffer = null;
-        private static unsafe void ScaleData(byte[] data, int dataSize, int unscaledPixelsPerLine, int duplication, int grouping)
+        private static unsafe void ScaleData(byte[] data, int dataSize, int dataPixelsPerLine, int lines, int scaling, int bytesPerPixel)
         {
-            if (duplication == 1)
+            if (scaling <= 1)
             {
                 return;
             }
-            
-            int lineCount = dataSize / unscaledPixelsPerLine;
-            int scaledLineSize = unscaledPixelsPerLine * duplication;
-            int scaledLineCount = lineCount * duplication;
 
-            EnsureBuffer(ref ScalingLineBuffer, scaledLineSize);
+            int bytesPerUnscaledLine = dataPixelsPerLine * bytesPerPixel;
+            int bytesPerScaledLine = bytesPerUnscaledLine * scaling;
+
+            EnsureBuffer(ref ScalingLineBuffer, bytesPerScaledLine);
 
             fixed (byte* p1 = &data[0])
             fixed (byte* p2 = &ScalingLineBuffer[0])
             {
                 IntPtr dataPtr = (IntPtr)p1;
-                IntPtr bufferPtr;
 
-                IntPtr srcPtr = dataPtr + unscaledPixelsPerLine * (lineCount - 1);
-                IntPtr destPtr = dataPtr + scaledLineSize * (scaledLineCount - 1);
+                IntPtr srcPtr = dataPtr + bytesPerUnscaledLine * (lines - 1);
+                IntPtr destPtr = dataPtr + bytesPerScaledLine * (lines * scaling - 1);
 
-                while ((long)srcPtr >= (long)dataPtr)
+                for (int line = 0; line < lines; line++)
                 {
+                    IntPtr bufferPtr;
+
+                    IntPtr offsetSrcPtr = srcPtr;
                     bufferPtr = (IntPtr)p2;
-                    for (int i = 0; i < unscaledPixelsPerLine; i++)
+                    for (int i = 0; i < dataPixelsPerLine; i++)
                     {
-                        int offset = i * grouping;
-                        for (int j = 0; j < duplication; j++)
+                        for (int j = 0; j < scaling; j++)
                         {
-                            Utils.Memcpy(bufferPtr, srcPtr + offset, grouping);
-                            bufferPtr += grouping;
+                            Utils.Memcpy(bufferPtr, offsetSrcPtr, bytesPerPixel);
+                            bufferPtr += bytesPerPixel;
                         }
+                        offsetSrcPtr += bytesPerPixel;
                     }
 
                     bufferPtr = (IntPtr)p2;
-                    for (int j = 0; j < duplication; j++)
+                    for (int j = 0; j < scaling; j++)
                     {
-                        Utils.Memcpy(destPtr, bufferPtr, scaledLineSize);
-                        destPtr -= scaledLineSize;
+                        Utils.Memcpy(destPtr, bufferPtr, bytesPerScaledLine);
+                        destPtr -= bytesPerScaledLine;
                     }
 
-                    srcPtr -= unscaledPixelsPerLine;
+                    srcPtr -= bytesPerUnscaledLine;
                 }
             }
         }
-
-        #region Pixel manipulators
 
         private static unsafe void CopyPixels(IntPtr bitmapBits, int stride, int imageHeight, byte[] newData,
             int actualDataBytes, int dataPixelsPerLine, int bytesPerPixel)

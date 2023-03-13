@@ -110,7 +110,6 @@ namespace DataViewer
             this.Options.PixelsPerLine = (int)this.pplNumericUpDown.Value;
 
             this.UpdateRoundings();
-
             if (this.autoRedrawCheckBox.Checked && !this.PplNorefresh)
             {
                 this.SoftRefresh();
@@ -222,9 +221,12 @@ namespace DataViewer
             this.Options.PixelScaling = (int)this.scalingNumericUpDown.Value;
 
             this.PplNorefresh = true;
-            this.pplNumericUpDown.Value = (this.pplNumericUpDown.Value * oldPixelScaling) / this.Options.PixelScaling;
+            var newPplValue = Math.Floor((this.pplNumericUpDown.Value * oldPixelScaling) / this.Options.PixelScaling);
+            this.pplNumericUpDown.Maximum = this.pplTrackBar.Maximum = this.Options.MaxImageWidth / this.Options.PixelScaling;
+            this.pplNumericUpDown.Value = newPplValue;
             this.PplNorefresh = false;
 
+            this.UpdateRoundings();
             if (this.autoRedrawCheckBox.Checked)
             {
                 this.SoftRefresh();
@@ -282,7 +284,7 @@ namespace DataViewer
             using var optionsForm = new OptionsForm(this.Options);
             optionsForm.ShowDialog();
 
-            this.pplNumericUpDown.Maximum = this.pplTrackBar.Maximum = this.Options.MaxImageWidth;
+            this.pplNumericUpDown.Maximum = this.pplTrackBar.Maximum = this.Options.MaxImageWidth / this.Options.PixelScaling;
 
             this.HardRefresh();
         }
