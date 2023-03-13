@@ -73,9 +73,7 @@ namespace DataViewer
             }
 
             this.mainPictureBox.Image = this.TheImage;
-
-            BitmapOperations.EnsureBuffer((long)this.Options.MaxImageWidth * this.Options.MaxImageHeight *
-                                          this.BytesPerPixel);
+            
             this.SoftRefresh();
         }
 
@@ -220,7 +218,12 @@ namespace DataViewer
             {
                 this.scalingTrackBar.Value = (int)this.scalingNumericUpDown.Value;
             }
+            int oldPixelScaling = this.Options.PixelScaling;
             this.Options.PixelScaling = (int)this.scalingNumericUpDown.Value;
+
+            this.PplNorefresh = true;
+            this.pplNumericUpDown.Value = (this.pplNumericUpDown.Value * oldPixelScaling) / this.Options.PixelScaling;
+            this.PplNorefresh = false;
 
             if (this.autoRedrawCheckBox.Checked)
             {

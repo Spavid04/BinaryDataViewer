@@ -79,17 +79,16 @@ namespace DataViewer
                     throw new ArgumentException("Invalid pixel format!");
             }
         }
-
-        private static byte[] DataBuffer = null;
-
-        public static void EnsureBuffer(long size)
+        
+        private static void EnsureBuffer(ref byte[] buffer, long size)
         {
-            if (DataBuffer == null || size > DataBuffer.Length)
+            if (buffer == null || size > buffer.Length)
             {
-                DataBuffer = new byte[size];
+                buffer = new byte[size];
             }
         }
 
+        private static byte[] DataBuffer = null;
         public static void CopyDataAsPixels(Stream from, long offset, Bitmap to, int pixelsPerLine,
             int pixelScaling, DataPixelFormat dataPixelFormat)
         {
@@ -97,20 +96,19 @@ namespace DataViewer
             int imageHeight = to.Height;
             var pixelFormat = to.PixelFormat;
             int bytesPerPixel = GetBytesPerPixel(pixelFormat);
-
-            int scaledPixelsPerLine = pixelsPerLine / pixelScaling;
+            
             int usableScaledLines = imageHeight / pixelScaling;
 
             long maxPossiblePixels = ((long)imageWidth * imageHeight) / pixelScaling;
-            EnsureBuffer(maxPossiblePixels * bytesPerPixel * pixelScaling * pixelScaling);
+            EnsureBuffer(ref DataBuffer, maxPossiblePixels * bytesPerPixel);
 
-            int totalUsefulPixels = usableScaledLines * scaledPixelsPerLine;
+            int totalUsefulPixels = usableScaledLines * pixelsPerLine;
             int totalBytesToRead = totalUsefulPixels * bytesPerPixel;
 
             from.Seek(offset, SeekOrigin.Begin);
             int actualBytesRead = from.Read(DataBuffer, 0, totalBytesToRead);
 
-            var bitmapData = to.LockBits(new Rectangle(0, 0, imageWidth, usableScaledLines), ImageLockMode.WriteOnly,
+            var bitmapData = to.LockBits(new Rectangle(0, 0, imageWidth, usableScaledLines * pixelScaling), ImageLockMode.WriteOnly,
                 pixelFormat);
 
             // in most cases where we have to flip bytes around, the last pixel will very often be "wrong"
@@ -139,38 +137,39 @@ namespace DataViewer
                     FlipToABGR(DataBuffer, actualBytesRead);
                     break;
             }
-            ScaleData(DataBuffer, actualBytesRead, scaledPixelsPerLine * bytesPerPixel, pixelScaling, bytesPerPixel);
-            CopyPixels(bitmapData.Scan0, bitmapData.Stride, imageHeight, DataBuffer, actualBytesRead * pixelScaling * pixelScaling, scaledPixelsPerLine * pixelScaling, bytesPerPixel);
+            ScaleData(DataBuffer, actualBytesRead, pixelsPerLine, pixelScaling, bytesPerPixel);
+            CopyPixels(bitmapData.Scan0, bitmapData.Stride, imageHeight, DataBuffer, actualBytesRead * pixelScaling * pixelScaling, pixelsPerLine * pixelScaling, bytesPerPixel);
 
             to.UnlockBits(bitmapData);
         }
 
-        private static unsafe void ScaleData(byte[] data, int dataSize, int lineSize, int duplication, int grouping)
+        private static byte[] ScalingLineBuffer = null;
+        private static unsafe void ScaleData(byte[] data, int dataSize, int unscaledPixelsPerLine, int duplication, int grouping)
         {
             if (duplication == 1)
             {
                 return;
             }
             
-            int lineCount = dataSize / lineSize;
-            int scaledLineSize = lineSize * duplication;
+            int lineCount = dataSize / unscaledPixelsPerLine;
+            int scaledLineSize = unscaledPixelsPerLine * duplication;
             int scaledLineCount = lineCount * duplication;
 
-            byte[] lineBuffer = new byte[scaledLineSize];
+            EnsureBuffer(ref ScalingLineBuffer, scaledLineSize);
 
             fixed (byte* p1 = &data[0])
-            fixed (byte* p2 = &lineBuffer[0])
+            fixed (byte* p2 = &ScalingLineBuffer[0])
             {
                 IntPtr dataPtr = (IntPtr)p1;
                 IntPtr bufferPtr;
 
-                IntPtr srcPtr = dataPtr + lineSize * (lineCount - 1);
+                IntPtr srcPtr = dataPtr + unscaledPixelsPerLine * (lineCount - 1);
                 IntPtr destPtr = dataPtr + scaledLineSize * (scaledLineCount - 1);
 
                 while ((long)srcPtr >= (long)dataPtr)
                 {
                     bufferPtr = (IntPtr)p2;
-                    for (int i = 0; i < lineSize; i++)
+                    for (int i = 0; i < unscaledPixelsPerLine; i++)
                     {
                         int offset = i * grouping;
                         for (int j = 0; j < duplication; j++)
@@ -187,7 +186,7 @@ namespace DataViewer
                         destPtr -= scaledLineSize;
                     }
 
-                    srcPtr -= lineSize;
+                    srcPtr -= unscaledPixelsPerLine;
                 }
             }
         }
