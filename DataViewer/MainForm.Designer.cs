@@ -188,7 +188,7 @@ namespace DataViewer
             this.saveImportantButton.Name = "saveImportantButton";
             this.saveImportantButton.Size = new System.Drawing.Size(188, 23);
             this.saveImportantButton.TabIndex = 14;
-            this.saveImportantButton.Text = "Save relevant image";
+            this.saveImportantButton.Text = "Save (without borders)";
             this.saveImportantButton.UseVisualStyleBackColor = true;
             this.saveImportantButton.Click += new System.EventHandler(this.saveImportantButton_Click);
             // 

@@ -99,7 +99,7 @@ namespace DataViewer
             
             int usableScaledLines = imageHeight / pixelScaling;
 
-            long maxPossibleDataPixels = ((long)pixelsPerLine * imageHeight) / (pixelScaling * pixelScaling);
+            long maxPossibleDataPixels = ((long)pixelsPerLine * imageHeight / pixelScaling);
             EnsureBuffer(ref DataBuffer, maxPossibleDataPixels * bytesPerPixel * pixelScaling * pixelScaling);
 
             int totalUsefulPixels = usableScaledLines * pixelsPerLine;

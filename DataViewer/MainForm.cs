@@ -43,7 +43,7 @@ namespace DataViewer
         }
 
         #region Refresh methods
-        
+
         private void HardRefresh()
         {
             this.mainPictureBox.Image = null;
@@ -73,7 +73,7 @@ namespace DataViewer
             }
 
             this.mainPictureBox.Image = this.TheImage;
-            
+
             this.SoftRefresh();
         }
 
@@ -117,7 +117,7 @@ namespace DataViewer
         }
 
         #region Offset rounding stuff
-        
+
         private void UpdateRoundings()
         {
             long rounding = 1;
@@ -221,8 +221,8 @@ namespace DataViewer
             this.Options.PixelScaling = (int)this.scalingNumericUpDown.Value;
 
             this.PplNorefresh = true;
-            var newPplValue = Math.Floor((this.pplNumericUpDown.Value * oldPixelScaling) / this.Options.PixelScaling);
-            this.pplNumericUpDown.Maximum = this.pplTrackBar.Maximum = this.Options.MaxImageWidth / this.Options.PixelScaling;
+            var newPplValue = Math.Max(1m, Math.Floor((this.pplNumericUpDown.Value * oldPixelScaling) / this.Options.PixelScaling));
+            this.pplNumericUpDown.Maximum = this.pplTrackBar.Maximum = Math.Max(1, this.Options.MaxImageWidth / this.Options.PixelScaling);
             this.pplNumericUpDown.Value = newPplValue;
             this.PplNorefresh = false;
 
@@ -348,7 +348,7 @@ namespace DataViewer
         {
             this.SoftRefresh();
 
-            int width = this.Options.PixelsPerLine;
+            int width = this.Options.PixelsPerLine * this.Options.PixelScaling;
             int dataPixels = (int)Math.Round((double)this.DataStreamLength / this.BytesPerPixel,
                 MidpointRounding.ToPositiveInfinity);
             int height = Math.Min(this.mainPictureBox.Height,
@@ -365,7 +365,7 @@ namespace DataViewer
                     g.DrawImage(this.TheImage,
                         new Rectangle(0, 0, width, height),
                         new Rectangle(0, 0, width, height),
-                        GraphicsUnit.Pixel); 
+                        GraphicsUnit.Pixel);
                 }
 
                 this.SaveImage(b);
