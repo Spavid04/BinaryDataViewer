@@ -181,20 +181,6 @@ namespace DataViewer
             this.ONosync = false;
         }
 
-        private void MainPictureBoxOnMouseWheel(object sender, MouseEventArgs e)
-        {
-            if (e.Delta == 0)
-            {
-                return;
-            }
-
-            int actualDelta = e.Delta / SystemInformation.MouseWheelScrollDelta;
-
-            this.UpdateRoundings();
-            this.oNumericUpDown.Value = Math.Clamp(oNumericUpDown.Value + actualDelta * this.oNumericUpDown.Increment,
-                0, this.oNumericUpDown.Maximum);
-        }
-
         private void oNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
             if (true)
@@ -269,6 +255,58 @@ namespace DataViewer
             this.UpdateRoundings();
             this.HardRefresh();
         }
+
+        #region Picturebox events
+
+        private void MainPictureBoxOnMouseWheel(object sender, MouseEventArgs e)
+        {
+            if (e.Delta == 0)
+            {
+                return;
+            }
+
+            int actualDelta = e.Delta / SystemInformation.MouseWheelScrollDelta;
+
+            this.UpdateRoundings();
+            this.oNumericUpDown.Value = Math.Clamp(oNumericUpDown.Value + actualDelta * this.oNumericUpDown.Increment,
+                0, this.oNumericUpDown.Maximum);
+        }
+
+        private void mainPictureBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.LastMouseY = e.Y;
+            this.IsDraggingOnPicturebox = true;
+        }
+
+        private void mainPictureBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.IsDraggingOnPicturebox = false;
+            this.LastMouseY = -1;
+        }
+
+        private bool IsDraggingOnPicturebox = false;
+        private int LastMouseY = 0;
+        private void mainPictureBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!this.IsDraggingOnPicturebox)
+            {
+                return;
+            }
+
+            int deltaPixels = -(e.Y - this.LastMouseY); // reversed: drag down => move up
+            int deltaInScaledPixels = deltaPixels / this.Options.PixelScaling;
+
+            if (deltaInScaledPixels != 0)
+            {
+                this.LastMouseY = e.Y;
+
+                this.UpdateRoundings();
+                this.oNumericUpDown.Value = Math.Clamp(oNumericUpDown.Value + deltaInScaledPixels * this.Options.PixelsPerLine,
+                    0, this.oNumericUpDown.Maximum);
+            }
+        }
+
+        #endregion
 
         #endregion
 

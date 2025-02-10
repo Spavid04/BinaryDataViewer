@@ -357,6 +357,9 @@ namespace DataViewer
             mainPictureBox.Size = new System.Drawing.Size(785, 663);
             mainPictureBox.TabIndex = 1;
             mainPictureBox.TabStop = false;
+            mainPictureBox.MouseDown += mainPictureBox_MouseDown;
+            mainPictureBox.MouseMove += mainPictureBox_MouseMove;
+            mainPictureBox.MouseUp += mainPictureBox_MouseUp;
             // 
             // mainOpenFileDialog
             // 
