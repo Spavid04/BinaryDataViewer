@@ -29,423 +29,385 @@ namespace DataViewer
         /// </summary>
         private void InitializeComponent()
         {
-            this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.paletteEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mainTLP = new System.Windows.Forms.TableLayoutPanel();
-            this.controlsPanel = new System.Windows.Forms.Panel();
-            this.scalingGroupBox = new System.Windows.Forms.GroupBox();
-            this.scalingNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.scalingTrackBar = new System.Windows.Forms.TrackBar();
-            this.saveImportantButton = new System.Windows.Forms.Button();
-            this.pfGroupGox = new System.Windows.Forms.GroupBox();
-            this.pfComboBox = new System.Windows.Forms.ComboBox();
-            this.oGroupBox = new System.Windows.Forms.GroupBox();
-            this.lineSnapRadioButton = new System.Windows.Forms.RadioButton();
-            this.pixelSnapRadioButton = new System.Windows.Forms.RadioButton();
-            this.noSnapRadioButton = new System.Windows.Forms.RadioButton();
-            this.hexCheckBox = new System.Windows.Forms.CheckBox();
-            this.oTrackBar = new System.Windows.Forms.TrackBar();
-            this.oNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.pplGroupBox = new System.Windows.Forms.GroupBox();
-            this.pplNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.pplTrackBar = new System.Windows.Forms.TrackBar();
-            this.saveAllButton = new System.Windows.Forms.Button();
-            this.redrawButton = new System.Windows.Forms.Button();
-            this.autoRedrawCheckBox = new System.Windows.Forms.CheckBox();
-            this.mainPictureBox = new System.Windows.Forms.PictureBox();
-            this.mainOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.saveOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.mainMenuStrip.SuspendLayout();
-            this.mainTLP.SuspendLayout();
-            this.controlsPanel.SuspendLayout();
-            this.scalingGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.scalingNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.scalingTrackBar)).BeginInit();
-            this.pfGroupGox.SuspendLayout();
-            this.oGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.oTrackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.oNumericUpDown)).BeginInit();
-            this.pplGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pplNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pplTrackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).BeginInit();
-            this.SuspendLayout();
+            mainMenuStrip = new System.Windows.Forms.MenuStrip();
+            openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            paletteEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            mainTLP = new System.Windows.Forms.TableLayoutPanel();
+            controlsPanel = new System.Windows.Forms.Panel();
+            scalingGroupBox = new System.Windows.Forms.GroupBox();
+            scalingNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            scalingTrackBar = new System.Windows.Forms.TrackBar();
+            saveImportantButton = new System.Windows.Forms.Button();
+            pfGroupGox = new System.Windows.Forms.GroupBox();
+            pfComboBox = new System.Windows.Forms.ComboBox();
+            oGroupBox = new System.Windows.Forms.GroupBox();
+            lineSnapRadioButton = new System.Windows.Forms.RadioButton();
+            pixelSnapRadioButton = new System.Windows.Forms.RadioButton();
+            noSnapRadioButton = new System.Windows.Forms.RadioButton();
+            hexCheckBox = new System.Windows.Forms.CheckBox();
+            oTrackBar = new System.Windows.Forms.TrackBar();
+            oNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            pplGroupBox = new System.Windows.Forms.GroupBox();
+            pplNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            pplTrackBar = new System.Windows.Forms.TrackBar();
+            saveAllButton = new System.Windows.Forms.Button();
+            redrawButton = new System.Windows.Forms.Button();
+            autoRedrawCheckBox = new System.Windows.Forms.CheckBox();
+            mainPictureBox = new System.Windows.Forms.PictureBox();
+            mainOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            saveOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            mainMenuStrip.SuspendLayout();
+            mainTLP.SuspendLayout();
+            controlsPanel.SuspendLayout();
+            scalingGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)scalingNumericUpDown).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)scalingTrackBar).BeginInit();
+            pfGroupGox.SuspendLayout();
+            oGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)oTrackBar).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)oNumericUpDown).BeginInit();
+            pplGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pplNumericUpDown).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pplTrackBar).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)mainPictureBox).BeginInit();
+            SuspendLayout();
             // 
             // mainMenuStrip
             // 
-            this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem,
-            this.optionsToolStripMenuItem,
-            this.paletteEditorToolStripMenuItem});
-            this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
-            this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(991, 24);
-            this.mainMenuStrip.TabIndex = 0;
-            this.mainMenuStrip.Text = "menuStrip1";
+            mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { openToolStripMenuItem, optionsToolStripMenuItem, paletteEditorToolStripMenuItem });
+            mainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            mainMenuStrip.Name = "mainMenuStrip";
+            mainMenuStrip.Size = new System.Drawing.Size(991, 24);
+            mainMenuStrip.TabIndex = 0;
+            mainMenuStrip.Text = "menuStrip1";
             // 
             // openToolStripMenuItem
             // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            openToolStripMenuItem.Name = "openToolStripMenuItem";
+            openToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            openToolStripMenuItem.Text = "Open";
+            openToolStripMenuItem.Click += openToolStripMenuItem_Click;
             // 
             // optionsToolStripMenuItem
             // 
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.optionsToolStripMenuItem.Text = "Options";
-            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
+            optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            optionsToolStripMenuItem.Text = "Options";
+            optionsToolStripMenuItem.Click += optionsToolStripMenuItem_Click;
             // 
             // paletteEditorToolStripMenuItem
             // 
-            this.paletteEditorToolStripMenuItem.Name = "paletteEditorToolStripMenuItem";
-            this.paletteEditorToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
-            this.paletteEditorToolStripMenuItem.Text = "Palette editor";
-            this.paletteEditorToolStripMenuItem.Click += new System.EventHandler(this.paletteEditorToolStripMenuItem_Click);
+            paletteEditorToolStripMenuItem.Name = "paletteEditorToolStripMenuItem";
+            paletteEditorToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
+            paletteEditorToolStripMenuItem.Text = "Palette editor";
+            paletteEditorToolStripMenuItem.Click += paletteEditorToolStripMenuItem_Click;
             // 
             // mainTLP
             // 
-            this.mainTLP.ColumnCount = 2;
-            this.mainTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.mainTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.mainTLP.Controls.Add(this.controlsPanel, 1, 0);
-            this.mainTLP.Controls.Add(this.mainPictureBox, 0, 0);
-            this.mainTLP.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainTLP.Location = new System.Drawing.Point(0, 24);
-            this.mainTLP.Name = "mainTLP";
-            this.mainTLP.RowCount = 1;
-            this.mainTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.mainTLP.Size = new System.Drawing.Size(991, 669);
-            this.mainTLP.TabIndex = 1;
+            mainTLP.ColumnCount = 2;
+            mainTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            mainTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            mainTLP.Controls.Add(controlsPanel, 1, 0);
+            mainTLP.Controls.Add(mainPictureBox, 0, 0);
+            mainTLP.Dock = System.Windows.Forms.DockStyle.Fill;
+            mainTLP.Location = new System.Drawing.Point(0, 24);
+            mainTLP.Name = "mainTLP";
+            mainTLP.RowCount = 1;
+            mainTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            mainTLP.Size = new System.Drawing.Size(991, 669);
+            mainTLP.TabIndex = 1;
             // 
             // controlsPanel
             // 
-            this.controlsPanel.Controls.Add(this.scalingGroupBox);
-            this.controlsPanel.Controls.Add(this.saveImportantButton);
-            this.controlsPanel.Controls.Add(this.pfGroupGox);
-            this.controlsPanel.Controls.Add(this.oGroupBox);
-            this.controlsPanel.Controls.Add(this.pplGroupBox);
-            this.controlsPanel.Controls.Add(this.saveAllButton);
-            this.controlsPanel.Controls.Add(this.redrawButton);
-            this.controlsPanel.Controls.Add(this.autoRedrawCheckBox);
-            this.controlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.controlsPanel.Location = new System.Drawing.Point(794, 3);
-            this.controlsPanel.Name = "controlsPanel";
-            this.controlsPanel.Size = new System.Drawing.Size(194, 663);
-            this.controlsPanel.TabIndex = 0;
+            controlsPanel.Controls.Add(scalingGroupBox);
+            controlsPanel.Controls.Add(saveImportantButton);
+            controlsPanel.Controls.Add(pfGroupGox);
+            controlsPanel.Controls.Add(oGroupBox);
+            controlsPanel.Controls.Add(pplGroupBox);
+            controlsPanel.Controls.Add(saveAllButton);
+            controlsPanel.Controls.Add(redrawButton);
+            controlsPanel.Controls.Add(autoRedrawCheckBox);
+            controlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            controlsPanel.Location = new System.Drawing.Point(794, 3);
+            controlsPanel.Name = "controlsPanel";
+            controlsPanel.Size = new System.Drawing.Size(194, 663);
+            controlsPanel.TabIndex = 0;
             // 
             // scalingGroupBox
             // 
-            this.scalingGroupBox.Controls.Add(this.scalingNumericUpDown);
-            this.scalingGroupBox.Controls.Add(this.scalingTrackBar);
-            this.scalingGroupBox.Location = new System.Drawing.Point(3, 291);
-            this.scalingGroupBox.Name = "scalingGroupBox";
-            this.scalingGroupBox.Size = new System.Drawing.Size(188, 100);
-            this.scalingGroupBox.TabIndex = 15;
-            this.scalingGroupBox.TabStop = false;
-            this.scalingGroupBox.Text = "Pixel scaling";
+            scalingGroupBox.Controls.Add(scalingNumericUpDown);
+            scalingGroupBox.Controls.Add(scalingTrackBar);
+            scalingGroupBox.Location = new System.Drawing.Point(3, 291);
+            scalingGroupBox.Name = "scalingGroupBox";
+            scalingGroupBox.Size = new System.Drawing.Size(188, 100);
+            scalingGroupBox.TabIndex = 15;
+            scalingGroupBox.TabStop = false;
+            scalingGroupBox.Text = "Pixel scaling";
             // 
             // scalingNumericUpDown
             // 
-            this.scalingNumericUpDown.Location = new System.Drawing.Point(6, 22);
-            this.scalingNumericUpDown.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.scalingNumericUpDown.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.scalingNumericUpDown.Name = "scalingNumericUpDown";
-            this.scalingNumericUpDown.Size = new System.Drawing.Size(79, 23);
-            this.scalingNumericUpDown.TabIndex = 1;
-            this.scalingNumericUpDown.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.scalingNumericUpDown.ValueChanged += new System.EventHandler(this.scalingNumericUpDown_ValueChanged);
+            scalingNumericUpDown.Location = new System.Drawing.Point(6, 22);
+            scalingNumericUpDown.Maximum = new decimal(new int[] { 50, 0, 0, 0 });
+            scalingNumericUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            scalingNumericUpDown.Name = "scalingNumericUpDown";
+            scalingNumericUpDown.Size = new System.Drawing.Size(79, 23);
+            scalingNumericUpDown.TabIndex = 1;
+            scalingNumericUpDown.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            scalingNumericUpDown.ValueChanged += scalingNumericUpDown_ValueChanged;
             // 
             // scalingTrackBar
             // 
-            this.scalingTrackBar.Location = new System.Drawing.Point(6, 51);
-            this.scalingTrackBar.Maximum = 50;
-            this.scalingTrackBar.Minimum = 1;
-            this.scalingTrackBar.Name = "scalingTrackBar";
-            this.scalingTrackBar.Size = new System.Drawing.Size(176, 45);
-            this.scalingTrackBar.TabIndex = 2;
-            this.scalingTrackBar.Value = 1;
-            this.scalingTrackBar.Scroll += new System.EventHandler(this.scalingTrackBar_Scroll);
+            scalingTrackBar.Location = new System.Drawing.Point(6, 51);
+            scalingTrackBar.Maximum = 50;
+            scalingTrackBar.Minimum = 1;
+            scalingTrackBar.Name = "scalingTrackBar";
+            scalingTrackBar.Size = new System.Drawing.Size(176, 45);
+            scalingTrackBar.TabIndex = 2;
+            scalingTrackBar.Value = 1;
+            scalingTrackBar.Scroll += scalingTrackBar_Scroll;
             // 
             // saveImportantButton
             // 
-            this.saveImportantButton.Location = new System.Drawing.Point(3, 519);
-            this.saveImportantButton.Name = "saveImportantButton";
-            this.saveImportantButton.Size = new System.Drawing.Size(188, 23);
-            this.saveImportantButton.TabIndex = 14;
-            this.saveImportantButton.Text = "Save (without borders)";
-            this.saveImportantButton.UseVisualStyleBackColor = true;
-            this.saveImportantButton.Click += new System.EventHandler(this.saveImportantButton_Click);
+            saveImportantButton.Location = new System.Drawing.Point(3, 519);
+            saveImportantButton.Name = "saveImportantButton";
+            saveImportantButton.Size = new System.Drawing.Size(188, 23);
+            saveImportantButton.TabIndex = 14;
+            saveImportantButton.Text = "Save (without borders)";
+            saveImportantButton.UseVisualStyleBackColor = true;
+            saveImportantButton.Click += saveImportantButton_Click;
             // 
             // pfGroupGox
             // 
-            this.pfGroupGox.Controls.Add(this.pfComboBox);
-            this.pfGroupGox.Location = new System.Drawing.Point(3, 397);
-            this.pfGroupGox.Name = "pfGroupGox";
-            this.pfGroupGox.Size = new System.Drawing.Size(188, 52);
-            this.pfGroupGox.TabIndex = 13;
-            this.pfGroupGox.TabStop = false;
-            this.pfGroupGox.Text = "Pixel format";
+            pfGroupGox.Controls.Add(pfComboBox);
+            pfGroupGox.Location = new System.Drawing.Point(3, 397);
+            pfGroupGox.Name = "pfGroupGox";
+            pfGroupGox.Size = new System.Drawing.Size(188, 52);
+            pfGroupGox.TabIndex = 13;
+            pfGroupGox.TabStop = false;
+            pfGroupGox.Text = "Pixel format";
             // 
             // pfComboBox
             // 
-            this.pfComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.pfComboBox.FormattingEnabled = true;
-            this.pfComboBox.Items.AddRange(new object[] {
-            "Grayscale (using palette)",
-            "RGB",
-            "BGR",
-            "RGBA",
-            "BGRA",
-            "ARGB",
-            "ABGR"});
-            this.pfComboBox.Location = new System.Drawing.Point(6, 22);
-            this.pfComboBox.Name = "pfComboBox";
-            this.pfComboBox.Size = new System.Drawing.Size(176, 23);
-            this.pfComboBox.TabIndex = 7;
-            this.pfComboBox.SelectedIndexChanged += new System.EventHandler(this.pfComboBox_SelectedIndexChanged);
+            pfComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            pfComboBox.FormattingEnabled = true;
+            pfComboBox.Items.AddRange(new object[] { "Grayscale (using palette)", "RGB", "BGR", "RGBA", "BGRA", "ARGB", "ABGR" });
+            pfComboBox.Location = new System.Drawing.Point(6, 22);
+            pfComboBox.Name = "pfComboBox";
+            pfComboBox.Size = new System.Drawing.Size(176, 23);
+            pfComboBox.TabIndex = 7;
+            pfComboBox.SelectedIndexChanged += pfComboBox_SelectedIndexChanged;
             // 
             // oGroupBox
             // 
-            this.oGroupBox.Controls.Add(this.lineSnapRadioButton);
-            this.oGroupBox.Controls.Add(this.pixelSnapRadioButton);
-            this.oGroupBox.Controls.Add(this.noSnapRadioButton);
-            this.oGroupBox.Controls.Add(this.hexCheckBox);
-            this.oGroupBox.Controls.Add(this.oTrackBar);
-            this.oGroupBox.Controls.Add(this.oNumericUpDown);
-            this.oGroupBox.Location = new System.Drawing.Point(3, 109);
-            this.oGroupBox.Name = "oGroupBox";
-            this.oGroupBox.Size = new System.Drawing.Size(188, 176);
-            this.oGroupBox.TabIndex = 12;
-            this.oGroupBox.TabStop = false;
-            this.oGroupBox.Text = "Offset";
+            oGroupBox.Controls.Add(lineSnapRadioButton);
+            oGroupBox.Controls.Add(pixelSnapRadioButton);
+            oGroupBox.Controls.Add(noSnapRadioButton);
+            oGroupBox.Controls.Add(hexCheckBox);
+            oGroupBox.Controls.Add(oTrackBar);
+            oGroupBox.Controls.Add(oNumericUpDown);
+            oGroupBox.Location = new System.Drawing.Point(3, 109);
+            oGroupBox.Name = "oGroupBox";
+            oGroupBox.Size = new System.Drawing.Size(188, 176);
+            oGroupBox.TabIndex = 12;
+            oGroupBox.TabStop = false;
+            oGroupBox.Text = "Offset";
             // 
             // lineSnapRadioButton
             // 
-            this.lineSnapRadioButton.AutoSize = true;
-            this.lineSnapRadioButton.Location = new System.Drawing.Point(6, 152);
-            this.lineSnapRadioButton.Name = "lineSnapRadioButton";
-            this.lineSnapRadioButton.Size = new System.Drawing.Size(92, 19);
-            this.lineSnapRadioButton.TabIndex = 9;
-            this.lineSnapRadioButton.TabStop = true;
-            this.lineSnapRadioButton.Text = "Snap to lines";
-            this.lineSnapRadioButton.UseVisualStyleBackColor = true;
-            this.lineSnapRadioButton.CheckedChanged += new System.EventHandler(this.SnapChangedRadioButton_CheckedChanged);
+            lineSnapRadioButton.AutoSize = true;
+            lineSnapRadioButton.Location = new System.Drawing.Point(6, 152);
+            lineSnapRadioButton.Name = "lineSnapRadioButton";
+            lineSnapRadioButton.Size = new System.Drawing.Size(92, 19);
+            lineSnapRadioButton.TabIndex = 9;
+            lineSnapRadioButton.TabStop = true;
+            lineSnapRadioButton.Text = "Snap to lines";
+            lineSnapRadioButton.UseVisualStyleBackColor = true;
+            lineSnapRadioButton.CheckedChanged += SnapChangedRadioButton_CheckedChanged;
             // 
             // pixelSnapRadioButton
             // 
-            this.pixelSnapRadioButton.AutoSize = true;
-            this.pixelSnapRadioButton.Location = new System.Drawing.Point(6, 127);
-            this.pixelSnapRadioButton.Name = "pixelSnapRadioButton";
-            this.pixelSnapRadioButton.Size = new System.Drawing.Size(98, 19);
-            this.pixelSnapRadioButton.TabIndex = 8;
-            this.pixelSnapRadioButton.TabStop = true;
-            this.pixelSnapRadioButton.Text = "Snap to pixels";
-            this.pixelSnapRadioButton.UseVisualStyleBackColor = true;
-            this.pixelSnapRadioButton.CheckedChanged += new System.EventHandler(this.SnapChangedRadioButton_CheckedChanged);
+            pixelSnapRadioButton.AutoSize = true;
+            pixelSnapRadioButton.Enabled = false;
+            pixelSnapRadioButton.Location = new System.Drawing.Point(6, 127);
+            pixelSnapRadioButton.Name = "pixelSnapRadioButton";
+            pixelSnapRadioButton.Size = new System.Drawing.Size(98, 19);
+            pixelSnapRadioButton.TabIndex = 8;
+            pixelSnapRadioButton.TabStop = true;
+            pixelSnapRadioButton.Text = "Snap to pixels";
+            pixelSnapRadioButton.UseVisualStyleBackColor = true;
+            pixelSnapRadioButton.CheckedChanged += SnapChangedRadioButton_CheckedChanged;
             // 
             // noSnapRadioButton
             // 
-            this.noSnapRadioButton.AutoSize = true;
-            this.noSnapRadioButton.Checked = true;
-            this.noSnapRadioButton.Location = new System.Drawing.Point(6, 102);
-            this.noSnapRadioButton.Name = "noSnapRadioButton";
-            this.noSnapRadioButton.Size = new System.Drawing.Size(82, 19);
-            this.noSnapRadioButton.TabIndex = 7;
-            this.noSnapRadioButton.TabStop = true;
-            this.noSnapRadioButton.Text = "Don\'t snap";
-            this.noSnapRadioButton.UseVisualStyleBackColor = true;
-            this.noSnapRadioButton.CheckedChanged += new System.EventHandler(this.SnapChangedRadioButton_CheckedChanged);
+            noSnapRadioButton.AutoSize = true;
+            noSnapRadioButton.Checked = true;
+            noSnapRadioButton.Location = new System.Drawing.Point(6, 102);
+            noSnapRadioButton.Name = "noSnapRadioButton";
+            noSnapRadioButton.Size = new System.Drawing.Size(82, 19);
+            noSnapRadioButton.TabIndex = 7;
+            noSnapRadioButton.TabStop = true;
+            noSnapRadioButton.Text = "Don't snap";
+            noSnapRadioButton.UseVisualStyleBackColor = true;
+            noSnapRadioButton.CheckedChanged += SnapChangedRadioButton_CheckedChanged;
             // 
             // hexCheckBox
             // 
-            this.hexCheckBox.AutoSize = true;
-            this.hexCheckBox.Checked = true;
-            this.hexCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.hexCheckBox.Location = new System.Drawing.Point(91, 23);
-            this.hexCheckBox.Name = "hexCheckBox";
-            this.hexCheckBox.Size = new System.Drawing.Size(47, 19);
-            this.hexCheckBox.TabIndex = 6;
-            this.hexCheckBox.Text = "Hex";
-            this.hexCheckBox.UseVisualStyleBackColor = true;
-            this.hexCheckBox.CheckedChanged += new System.EventHandler(this.hexCheckBox_CheckedChanged);
+            hexCheckBox.AutoSize = true;
+            hexCheckBox.Checked = true;
+            hexCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            hexCheckBox.Location = new System.Drawing.Point(91, 23);
+            hexCheckBox.Name = "hexCheckBox";
+            hexCheckBox.Size = new System.Drawing.Size(47, 19);
+            hexCheckBox.TabIndex = 6;
+            hexCheckBox.Text = "Hex";
+            hexCheckBox.UseVisualStyleBackColor = true;
+            hexCheckBox.CheckedChanged += hexCheckBox_CheckedChanged;
             // 
             // oTrackBar
             // 
-            this.oTrackBar.Location = new System.Drawing.Point(6, 51);
-            this.oTrackBar.Maximum = 1000;
-            this.oTrackBar.Name = "oTrackBar";
-            this.oTrackBar.Size = new System.Drawing.Size(176, 45);
-            this.oTrackBar.TabIndex = 5;
-            this.oTrackBar.Scroll += new System.EventHandler(this.oTrackBar_Scroll);
+            oTrackBar.Location = new System.Drawing.Point(6, 51);
+            oTrackBar.Maximum = 1000;
+            oTrackBar.Name = "oTrackBar";
+            oTrackBar.Size = new System.Drawing.Size(176, 45);
+            oTrackBar.TabIndex = 5;
+            oTrackBar.Scroll += oTrackBar_Scroll;
             // 
             // oNumericUpDown
             // 
-            this.oNumericUpDown.Hexadecimal = true;
-            this.oNumericUpDown.Location = new System.Drawing.Point(6, 22);
-            this.oNumericUpDown.Maximum = new decimal(new int[] {
-            2048,
-            0,
-            0,
-            0});
-            this.oNumericUpDown.Name = "oNumericUpDown";
-            this.oNumericUpDown.Size = new System.Drawing.Size(79, 23);
-            this.oNumericUpDown.TabIndex = 4;
-            this.oNumericUpDown.ValueChanged += new System.EventHandler(this.oNumericUpDown_ValueChanged);
+            oNumericUpDown.Hexadecimal = true;
+            oNumericUpDown.Location = new System.Drawing.Point(6, 22);
+            oNumericUpDown.Maximum = new decimal(new int[] { 2048, 0, 0, 0 });
+            oNumericUpDown.Name = "oNumericUpDown";
+            oNumericUpDown.Size = new System.Drawing.Size(79, 23);
+            oNumericUpDown.TabIndex = 4;
+            oNumericUpDown.ValueChanged += oNumericUpDown_ValueChanged;
             // 
             // pplGroupBox
             // 
-            this.pplGroupBox.Controls.Add(this.pplNumericUpDown);
-            this.pplGroupBox.Controls.Add(this.pplTrackBar);
-            this.pplGroupBox.Location = new System.Drawing.Point(3, 3);
-            this.pplGroupBox.Name = "pplGroupBox";
-            this.pplGroupBox.Size = new System.Drawing.Size(188, 100);
-            this.pplGroupBox.TabIndex = 11;
-            this.pplGroupBox.TabStop = false;
-            this.pplGroupBox.Text = "Pixels per line";
+            pplGroupBox.Controls.Add(pplNumericUpDown);
+            pplGroupBox.Controls.Add(pplTrackBar);
+            pplGroupBox.Location = new System.Drawing.Point(3, 3);
+            pplGroupBox.Name = "pplGroupBox";
+            pplGroupBox.Size = new System.Drawing.Size(188, 100);
+            pplGroupBox.TabIndex = 11;
+            pplGroupBox.TabStop = false;
+            pplGroupBox.Text = "Pixels per line";
             // 
             // pplNumericUpDown
             // 
-            this.pplNumericUpDown.Location = new System.Drawing.Point(6, 22);
-            this.pplNumericUpDown.Maximum = new decimal(new int[] {
-            2048,
-            0,
-            0,
-            0});
-            this.pplNumericUpDown.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.pplNumericUpDown.Name = "pplNumericUpDown";
-            this.pplNumericUpDown.Size = new System.Drawing.Size(79, 23);
-            this.pplNumericUpDown.TabIndex = 1;
-            this.pplNumericUpDown.Value = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.pplNumericUpDown.ValueChanged += new System.EventHandler(this.pplNumericUpDown_ValueChanged);
+            pplNumericUpDown.Location = new System.Drawing.Point(6, 22);
+            pplNumericUpDown.Maximum = new decimal(new int[] { 2048, 0, 0, 0 });
+            pplNumericUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            pplNumericUpDown.Name = "pplNumericUpDown";
+            pplNumericUpDown.Size = new System.Drawing.Size(79, 23);
+            pplNumericUpDown.TabIndex = 1;
+            pplNumericUpDown.Value = new decimal(new int[] { 1000, 0, 0, 0 });
+            pplNumericUpDown.ValueChanged += pplNumericUpDown_ValueChanged;
             // 
             // pplTrackBar
             // 
-            this.pplTrackBar.Location = new System.Drawing.Point(6, 51);
-            this.pplTrackBar.Maximum = 2048;
-            this.pplTrackBar.Minimum = 1;
-            this.pplTrackBar.Name = "pplTrackBar";
-            this.pplTrackBar.Size = new System.Drawing.Size(176, 45);
-            this.pplTrackBar.TabIndex = 2;
-            this.pplTrackBar.Value = 1000;
-            this.pplTrackBar.Scroll += new System.EventHandler(this.pplTrackBar_Scroll);
+            pplTrackBar.Location = new System.Drawing.Point(6, 51);
+            pplTrackBar.Maximum = 2048;
+            pplTrackBar.Minimum = 1;
+            pplTrackBar.Name = "pplTrackBar";
+            pplTrackBar.Size = new System.Drawing.Size(176, 45);
+            pplTrackBar.TabIndex = 2;
+            pplTrackBar.Value = 1000;
+            pplTrackBar.Scroll += pplTrackBar_Scroll;
             // 
             // saveAllButton
             // 
-            this.saveAllButton.Location = new System.Drawing.Point(3, 548);
-            this.saveAllButton.Name = "saveAllButton";
-            this.saveAllButton.Size = new System.Drawing.Size(188, 23);
-            this.saveAllButton.TabIndex = 10;
-            this.saveAllButton.Text = "Save whole image";
-            this.saveAllButton.UseVisualStyleBackColor = true;
-            this.saveAllButton.Click += new System.EventHandler(this.saveAllButton_Click);
+            saveAllButton.Location = new System.Drawing.Point(3, 548);
+            saveAllButton.Name = "saveAllButton";
+            saveAllButton.Size = new System.Drawing.Size(188, 23);
+            saveAllButton.TabIndex = 10;
+            saveAllButton.Text = "Save whole image";
+            saveAllButton.UseVisualStyleBackColor = true;
+            saveAllButton.Click += saveAllButton_Click;
             // 
             // redrawButton
             // 
-            this.redrawButton.Location = new System.Drawing.Point(3, 490);
-            this.redrawButton.Name = "redrawButton";
-            this.redrawButton.Size = new System.Drawing.Size(91, 23);
-            this.redrawButton.TabIndex = 9;
-            this.redrawButton.Text = "Redraw";
-            this.redrawButton.UseVisualStyleBackColor = true;
-            this.redrawButton.Click += new System.EventHandler(this.redrawButton_Click);
+            redrawButton.Location = new System.Drawing.Point(3, 490);
+            redrawButton.Name = "redrawButton";
+            redrawButton.Size = new System.Drawing.Size(91, 23);
+            redrawButton.TabIndex = 9;
+            redrawButton.Text = "Redraw";
+            redrawButton.UseVisualStyleBackColor = true;
+            redrawButton.Click += redrawButton_Click;
             // 
             // autoRedrawCheckBox
             // 
-            this.autoRedrawCheckBox.AutoSize = true;
-            this.autoRedrawCheckBox.Checked = true;
-            this.autoRedrawCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.autoRedrawCheckBox.Location = new System.Drawing.Point(100, 493);
-            this.autoRedrawCheckBox.Name = "autoRedrawCheckBox";
-            this.autoRedrawCheckBox.Size = new System.Drawing.Size(91, 19);
-            this.autoRedrawCheckBox.TabIndex = 8;
-            this.autoRedrawCheckBox.Text = "Auto redraw";
-            this.autoRedrawCheckBox.UseVisualStyleBackColor = true;
-            this.autoRedrawCheckBox.CheckedChanged += new System.EventHandler(this.autoRedrawCheckBox_CheckedChanged);
+            autoRedrawCheckBox.AutoSize = true;
+            autoRedrawCheckBox.Checked = true;
+            autoRedrawCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            autoRedrawCheckBox.Location = new System.Drawing.Point(100, 493);
+            autoRedrawCheckBox.Name = "autoRedrawCheckBox";
+            autoRedrawCheckBox.Size = new System.Drawing.Size(91, 19);
+            autoRedrawCheckBox.TabIndex = 8;
+            autoRedrawCheckBox.Text = "Auto redraw";
+            autoRedrawCheckBox.UseVisualStyleBackColor = true;
+            autoRedrawCheckBox.CheckedChanged += autoRedrawCheckBox_CheckedChanged;
             // 
             // mainPictureBox
             // 
-            this.mainPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPictureBox.Location = new System.Drawing.Point(3, 3);
-            this.mainPictureBox.Name = "mainPictureBox";
-            this.mainPictureBox.Size = new System.Drawing.Size(785, 663);
-            this.mainPictureBox.TabIndex = 1;
-            this.mainPictureBox.TabStop = false;
+            mainPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            mainPictureBox.Location = new System.Drawing.Point(3, 3);
+            mainPictureBox.Name = "mainPictureBox";
+            mainPictureBox.Size = new System.Drawing.Size(785, 663);
+            mainPictureBox.TabIndex = 1;
+            mainPictureBox.TabStop = false;
             // 
             // mainOpenFileDialog
             // 
-            this.mainOpenFileDialog.Filter = "All files|*.*";
-            this.mainOpenFileDialog.ReadOnlyChecked = true;
-            this.mainOpenFileDialog.Title = "Open file";
+            mainOpenFileDialog.Filter = "All files|*.*";
+            mainOpenFileDialog.ReadOnlyChecked = true;
+            mainOpenFileDialog.Title = "Open file";
             // 
             // saveOpenFileDialog
             // 
-            this.saveOpenFileDialog.CheckFileExists = false;
-            this.saveOpenFileDialog.CheckPathExists = false;
-            this.saveOpenFileDialog.DefaultExt = "png";
-            this.saveOpenFileDialog.FileName = "view.png";
-            this.saveOpenFileDialog.Filter = "Image Files(*.bmp;*.jpg;*.png)|*.bmp;*.jpg;*.png";
-            this.saveOpenFileDialog.Title = "Save view";
+            saveOpenFileDialog.CheckFileExists = false;
+            saveOpenFileDialog.CheckPathExists = false;
+            saveOpenFileDialog.DefaultExt = "png";
+            saveOpenFileDialog.FileName = "view.png";
+            saveOpenFileDialog.Filter = "Image Files(*.bmp;*.jpg;*.png)|*.bmp;*.jpg;*.png";
+            saveOpenFileDialog.Title = "Save view";
             // 
             // MainForm
             // 
-            this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(991, 693);
-            this.Controls.Add(this.mainTLP);
-            this.Controls.Add(this.mainMenuStrip);
-            this.MainMenuStrip = this.mainMenuStrip;
-            this.Name = "MainForm";
-            this.Text = "Data Viewer";
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainForm_DragDrop);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainForm_DragEnter);
-            this.mainMenuStrip.ResumeLayout(false);
-            this.mainMenuStrip.PerformLayout();
-            this.mainTLP.ResumeLayout(false);
-            this.controlsPanel.ResumeLayout(false);
-            this.controlsPanel.PerformLayout();
-            this.scalingGroupBox.ResumeLayout(false);
-            this.scalingGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.scalingNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.scalingTrackBar)).EndInit();
-            this.pfGroupGox.ResumeLayout(false);
-            this.oGroupBox.ResumeLayout(false);
-            this.oGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.oTrackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.oNumericUpDown)).EndInit();
-            this.pplGroupBox.ResumeLayout(false);
-            this.pplGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pplNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pplTrackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AllowDrop = true;
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(991, 693);
+            Controls.Add(mainTLP);
+            Controls.Add(mainMenuStrip);
+            MainMenuStrip = mainMenuStrip;
+            Name = "MainForm";
+            Text = "Data Viewer";
+            Load += MainForm_Load;
+            DragDrop += MainForm_DragDrop;
+            DragEnter += MainForm_DragEnter;
+            mainMenuStrip.ResumeLayout(false);
+            mainMenuStrip.PerformLayout();
+            mainTLP.ResumeLayout(false);
+            controlsPanel.ResumeLayout(false);
+            controlsPanel.PerformLayout();
+            scalingGroupBox.ResumeLayout(false);
+            scalingGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)scalingNumericUpDown).EndInit();
+            ((System.ComponentModel.ISupportInitialize)scalingTrackBar).EndInit();
+            pfGroupGox.ResumeLayout(false);
+            oGroupBox.ResumeLayout(false);
+            oGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)oTrackBar).EndInit();
+            ((System.ComponentModel.ISupportInitialize)oNumericUpDown).EndInit();
+            pplGroupBox.ResumeLayout(false);
+            pplGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pplNumericUpDown).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pplTrackBar).EndInit();
+            ((System.ComponentModel.ISupportInitialize)mainPictureBox).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

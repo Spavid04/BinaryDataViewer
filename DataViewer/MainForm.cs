@@ -23,6 +23,7 @@ namespace DataViewer
             this.ProgramArgs = args;
             this.Disposed += (_, _) => this.DisposeStuff();
             InitializeComponent();
+            this.mainPictureBox.MouseWheel += MainPictureBoxOnMouseWheel;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -165,14 +166,8 @@ namespace DataViewer
         #endregion
 
         private bool ONosync = false;
-        private bool ONoscroll = false;
         private void oTrackBar_Scroll(object sender, EventArgs e)
         {
-            if (this.ONoscroll)
-            {
-                return;
-            }
-
             this.ONosync = true;
 
             this.UpdateRoundings();
@@ -182,16 +177,27 @@ namespace DataViewer
                     (long)this.oNumericUpDown.Increment, out roundedTrackbar)
             );
 
-            this.ONoscroll = true;
             this.oTrackBar.Value = roundedTrackbar;
-            this.ONoscroll = false;
-
             this.ONosync = false;
+        }
+
+        private void MainPictureBoxOnMouseWheel(object sender, MouseEventArgs e)
+        {
+            if (e.Delta == 0)
+            {
+                return;
+            }
+
+            int actualDelta = e.Delta / SystemInformation.MouseWheelScrollDelta;
+
+            this.UpdateRoundings();
+            this.oNumericUpDown.Value = Math.Clamp(oNumericUpDown.Value + actualDelta * this.oNumericUpDown.Increment,
+                0, this.oNumericUpDown.Maximum);
         }
 
         private void oNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (!this.ONosync)
+            if (true)
             {
                 this.oTrackBar.Value = (int)(((double)this.oNumericUpDown.Value / this.DataStreamLength) * this.oTrackBar.Maximum);
             }
@@ -233,8 +239,14 @@ namespace DataViewer
             }
         }
 
+        private bool NoSnapChangeEvent = false;
         private void SnapChangedRadioButton_CheckedChanged(object sender, EventArgs e)
         {
+            if (this.NoSnapChangeEvent)
+            {
+                return;
+            }
+
             this.UpdateRoundings();
         }
 
@@ -246,6 +258,14 @@ namespace DataViewer
         private void pfComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.Options.DPFormat = BitmapOperations.StringToDataPixelFormat(this.pfComboBox.Text);
+            this.pixelSnapRadioButton.Enabled = (this.Options.DPFormat != BitmapOperations.DataPixelFormat.GRAYSCALE);
+            if (!this.pixelSnapRadioButton.Enabled && this.pixelSnapRadioButton.Checked)
+            {
+                this.NoSnapChangeEvent = true;
+                this.noSnapRadioButton.Checked = true;
+                this.NoSnapChangeEvent = false;
+            }
+
             this.UpdateRoundings();
             this.HardRefresh();
         }
