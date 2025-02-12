@@ -57,6 +57,7 @@ namespace DataViewer
             mainPictureBox = new System.Windows.Forms.PictureBox();
             mainOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             saveOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            fitToViewButton = new System.Windows.Forms.Button();
             mainMenuStrip.SuspendLayout();
             mainTLP.SuspendLayout();
             controlsPanel.SuspendLayout();
@@ -285,6 +286,7 @@ namespace DataViewer
             // 
             // pplGroupBox
             // 
+            pplGroupBox.Controls.Add(fitToViewButton);
             pplGroupBox.Controls.Add(pplNumericUpDown);
             pplGroupBox.Controls.Add(pplTrackBar);
             pplGroupBox.Location = new System.Drawing.Point(3, 3);
@@ -376,6 +378,16 @@ namespace DataViewer
             saveOpenFileDialog.Filter = "Image Files(*.bmp;*.jpg;*.png)|*.bmp;*.jpg;*.png";
             saveOpenFileDialog.Title = "Save view";
             // 
+            // fitToViewButton
+            // 
+            fitToViewButton.Location = new System.Drawing.Point(91, 22);
+            fitToViewButton.Name = "fitToViewButton";
+            fitToViewButton.Size = new System.Drawing.Size(28, 23);
+            fitToViewButton.TabIndex = 3;
+            fitToViewButton.Text = "Fit";
+            fitToViewButton.UseVisualStyleBackColor = true;
+            fitToViewButton.Click += fitToViewButton_Click;
+            // 
             // MainForm
             // 
             AllowDrop = true;
@@ -443,6 +455,7 @@ namespace DataViewer
         private System.Windows.Forms.GroupBox scalingGroupBox;
         private System.Windows.Forms.NumericUpDown scalingNumericUpDown;
         private System.Windows.Forms.TrackBar scalingTrackBar;
+        private System.Windows.Forms.Button fitToViewButton;
     }
 }
 

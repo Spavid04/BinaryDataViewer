@@ -308,6 +308,13 @@ namespace DataViewer
 
         #endregion
 
+        private void fitToViewButton_Click(object sender, EventArgs e)
+        {
+            int availableSpace = this.mainPictureBox.Width;
+            int usablePixels = availableSpace / this.Options.PixelScaling;
+            this.pplNumericUpDown.Value = usablePixels;
+        }
+
         #endregion
 
         private void OpenFile(string path)
