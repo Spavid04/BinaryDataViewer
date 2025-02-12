@@ -85,7 +85,17 @@ namespace DataViewer
                 return;
             }
 
-            BitmapOperations.CopyDataAsPixels(this.DataStream, this.Options.Offset, this.TheImage, this.Options.PixelsPerLine, this.Options.PixelScaling, this.Options.DPFormat);
+            try
+            {
+                BitmapOperations.CopyDataAsPixels(this.DataStream, this.Options.Offset, this.TheImage, this.Options.PixelsPerLine, this.Options.PixelScaling, this.Options.DPFormat);
+            }
+            catch (IOException e)
+            {
+                MessageBox.Show($"Failed to read file. Error:\n\n{e.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.CleanupStream();
+                return;
+            }
+
             this.mainPictureBox.Invalidate();
         }
 
@@ -319,16 +329,24 @@ namespace DataViewer
 
         private void OpenFile(string path)
         {
-            this.DataStream?.Dispose();
-            this.DataStream = null;
+            this.CleanupStream();
 
             this.oNumericUpDown.Value = 0;
 
-            this.FilePath = path;
-            this.DataStream = new FileStream(this.FilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-            this.DataStreamLength = this.DataStream.Length;
+            try
+            {
+                this.DataStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                this.DataStreamLength = this.DataStream.Length;
+            }
+            catch (IOException e)
+            {
+                MessageBox.Show($"Failed to open file. Error:\n\n{e.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.CleanupStream();
+                return;
+            }
 
-            this.oNumericUpDown.Maximum = this.DataStream.Length;
+            this.FilePath = path;
+            this.oNumericUpDown.Maximum = this.DataStreamLength;
             this.Text = $"Data Viewer - {this.FilePath}";
 
             this.SoftRefresh();
@@ -467,10 +485,19 @@ namespace DataViewer
         private int BytesPerPixel =>
             BitmapOperations.GetBytesPerPixel(BitmapOperations.DataPixelFormatToPixelFormat(this.Options.DPFormat));
 
+        private void CleanupStream()
+        {
+            this.DataStream?.Dispose();
+            this.DataStream = null;
+
+            this.FilePath = null;
+            this.DataStreamLength = 0;
+        }
+
         private void DisposeStuff()
         {
             this.TheImage?.Dispose();
-            this.DataStream?.Dispose();
+            this.CleanupStream();
         }
     }
 
