@@ -301,7 +301,7 @@ namespace DataViewer
                 this.LastMouseY = e.Y;
 
                 this.UpdateRoundings();
-                this.oNumericUpDown.Value = Math.Clamp(oNumericUpDown.Value + deltaInScaledPixels * this.Options.PixelsPerLine,
+                this.oNumericUpDown.Value = Math.Clamp(oNumericUpDown.Value + deltaInScaledPixels * this.Options.PixelsPerLine * this.BytesPerPixel,
                     0, this.oNumericUpDown.Maximum);
             }
         }
